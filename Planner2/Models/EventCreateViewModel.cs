@@ -22,6 +22,8 @@ namespace Planner2.Models
         
         [Required(ErrorMessage = "Date is required")]
         [Display(Name = "Date for event:")]
+        [DataType(DataType.Date)]
+        [DisplayFormat(DataFormatString = "{0:dd'/'MM'/'yyyy}",ApplyFormatInEditMode = true)]
         public string Date { get; set; }
     }
 }

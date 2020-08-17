@@ -30,7 +30,40 @@ namespace Planner2.Controllers
             return View(data);
         }
 
+        [HttpGet]
+        public ActionResult Create()
+        {
+            return View();
+        }
 
+        [HttpPost]
+        public ActionResult Create(EventCreateViewModel model)
+        {
+            if (ModelState.IsValid)
+            {
+                _context.Events.Add(new Event
+                {
+                    Date = model.Date,
+                    Description = model.Description,
+                    Image = model.Image,
+                    Title = model.Title
+                });
+                _context.SaveChanges();
+                return RedirectToAction("ListEvents", "Planner");
+            }
+            else
+            {
+                return View();
+            }
+        }
+
+        public ActionResult Delete(int id)
+        {
+            _context.Events.Remove(_context.Events.FirstOrDefault(t => t.Id == id));
+            _context.SaveChanges();
+
+            return RedirectToAction("ListEvents", "Planner");
+        }
 
     }
 }
